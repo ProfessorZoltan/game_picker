@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 # Load CSV file (Replace with GitHub URL if needed)
 def load_data():
-    file_path = "https://raw.githubusercontent.com/yourusername/repository/main/game_list.csv"  # Change this
+    file_path = "game_list.csv"  # Change this
     try:
         df = pd.read_csv(file_path)
     except:

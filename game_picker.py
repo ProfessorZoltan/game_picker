@@ -31,7 +31,7 @@ def load_data():
 
     # Ensure proper data types
     df["date last played by group"] = pd.to_datetime(df.get("date last played by group"), errors='coerce')
-    df["date last played by group"].fillna(pd.Timestamp("2023-01-01"), inplace=True)
+    df["date last played by group"].fillna(pd.Timestamp("2023-06-01"), inplace=True)
     df["game length"] = pd.to_numeric(df.get("game length"), errors='coerce')
     df["number of players supported"] = pd.to_numeric(df.get("number of players supported"), errors='coerce')
 
@@ -43,11 +43,11 @@ def weighted_random_choice(df):
 
     today = datetime.today()
     df["days since played"] = df["date last played by group"].apply(
-        lambda x: (today - x).days if pd.notnull(x) else 9999  # Favor unplayed games
+        lambda x: (today - x).days if pd.notnull(x) else 700  # Favor unplayed games
     )
 
     # Assign probability proportional to time since last played (longer = higher chance)
-    df["weight"] = df["days since played"] ** 2  # Squaring increases weight difference
+    df["weight"] = df["days since played"] ** 1.2  # increases weight difference
 
     # Normalize weights
     total_weight = df["weight"].sum()
